@@ -1,9 +1,9 @@
 <div>
   <% if user_signed_in? %>
     <%= link_to "Home Page", root_path %>
-    <%= link_to "Create new Article", new_article_path(current_user) %>
-    <%= link_to "My Profile", edit_user_registration_path %>
-    <%= link_to 'My Articles Dashboard', articles_path(current_user) %>
+    <%= link_to "Create new Article", new_article_path %>
+    <%= link_to "Edit my Profile", edit_user_registration_path %>
+    <%= link_to 'My Articles Dashboard', articles_path %>
     <%= link_to "Sign out", destroy_user_session_path, method: :delete %> <br />
   <% else %>
     <%= link_to "Sign in", new_user_session_path %>
