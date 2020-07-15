@@ -1,3 +1,30 @@
-<%= render 'navbar' %>
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Feed</title>
+</head>
+  <body>
+    <%= render 'navbar' %>
+    <h1>Articles Feed</h1>
+    <div id="article-list">
+      <ol>
+        <% @article.each do |article| %>
+          <% if article.user_id %>
+          <li>
+            <div id="article_title">
+              <p>
+                <b>Title:</b> <%= link_to article.title, article_path(id: article.id) %>
+              </p>
+              <p>
+                <b>Author:</b> <%= User.find_by(id: article.user_id).email %>
+              </p>
+            </div>
+          </li>
+          <% end %>
+        <% end %>
+      </ol>
+    </div>
+  </body>
+</html>

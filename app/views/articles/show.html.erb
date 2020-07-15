@@ -1,3 +1,5 @@
+<%= render 'pages/navbar' %>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -14,7 +16,8 @@
   <strong>Body:</strong>
   <%= @article.body %>
 </p>
-
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Delete', article_path, method: :delete %> |
+<% if user_signed_in? %>
+  <%= link_to 'Edit', edit_article_path(@article) %> |
+  <%= link_to 'Delete', article_path, method: :delete %> |
+<% end %>
 <%= link_to 'Back', articles_path %>
