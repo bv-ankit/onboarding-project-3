@@ -7,7 +7,9 @@
 </head>
   <body>
     <%= render 'navbar' %>
+
     <h1>Articles Feed</h1>
+    
     <div id="article-list">
       <table>
         <thead>
@@ -23,7 +25,7 @@
           <% @article.each do |article| %>
             <tr>
               <td> <%= link_to article.title, article_path(id: article.id) %> </td>
-              <td> <%= User.find_by(id: article.user_id).email %> </td>
+              <td> <%= User.find_by(id: article.user_id).name %> </td>
               <td> <%= article.created_at %> </td>
             </tr>
           <% end %>
