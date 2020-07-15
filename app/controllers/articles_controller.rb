@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 
   # GET /articles
@@ -24,6 +26,7 @@ class ArticlesController < ApplicationController
   # POST /articles
   # POST /articles.json
   def create
+    params[:article][:user_id] = current_user.id
     @article = Article.new(article_params)
 
     respond_to do |format|
@@ -40,6 +43,7 @@ class ArticlesController < ApplicationController
   # PATCH/PUT /articles/1
   # PATCH/PUT /articles/1.json
   def update
+    params[:article][:user_id] = current_user.id
     respond_to do |format|
       if @article.update(article_params)
         format.html { redirect_to @article, notice: 'Article was successfully updated.' }
@@ -71,4 +75,10 @@ class ArticlesController < ApplicationController
     def article_params
       params.require(:article).permit(:title, :user_id, :body)
     end
+
+    # Check if signed in user matches article author
+    def correct_user
+      redirect_to root_path unless current_user.id == Article.find_by(id: params[:id]).user_id
+    end
+
 end
